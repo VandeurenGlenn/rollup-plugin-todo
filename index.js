@@ -15,7 +15,7 @@ let matchStore = [];
 /**
  * @return {object}
  */
-module.exports = (options) => {
+module.exports = (options = {}) => {
   return {
     name: 'todo',
     transform(code, id) {
