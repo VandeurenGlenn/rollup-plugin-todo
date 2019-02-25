@@ -15,7 +15,9 @@ const rollupPluginTodo = require('rollup-plugin-todo');
 {
   ...
   plugins: [
-    rollupPluginTodo()
+    rollupPluginTodo({
+      dir // optional
+    })
   ],
   ...
 }

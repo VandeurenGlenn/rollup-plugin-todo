@@ -18,34 +18,32 @@ let matchStore = [];
 module.exports = (options) => {
   return {
     name: 'todo',
-    options(_options) {
-      options = _options;
-      return options;
-    },
     transform(code, id) {
       let matches = code.match(/\/\/ TODO:(.*)(\W\/\/.*)|(\/\/.*)+/g);
-      const parse = this.parse(code);
-      let text = code;
-      matches = matches.map(match => {
-        const start = code.indexOf(match);
-        const end = start + (match.length + 1);
-        parse.body.forEach(node => {
-          if (node.start >= end) {
-            text = text.slice(node.start, node.end);
+      if (matches) {
+        const parse = this.parse(code);
+        let text = code;
+        matches = matches.map(match => {
+          const start = code.indexOf(match);
+          const end = start + (match.length + 1);
+          parse.body.forEach(node => {
+            if (node.start >= end) {
+              text = text.slice(node.start, node.end);
+            }
+          })
+          return {
+            start,
+            end,
+            value: match,
+            code: text
           }
-
         })
-        return {
-          start,
-          end,
-          value: match,
-          code: text
-        }
-      })
-      matchStore.push([id, matches]);
+        matchStore.push([id, matches]);
+      }
     },
-    writeBundle() {
-      mkdir(options.dir, (err) => {
+    buildEnd() {
+      const dir = options.dir || process.cwd();
+      mkdir(dir, (err) => {
         const path = join(options.dir, 'todo.html');
         const template = html`<!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -86,9 +84,6 @@ ${todos.map(todo => `
           if (err) console.error(err);
         })
       })
-    },
-    generateBundle(_options, bundle) {
-      options = _options;
     }
   };
 }
