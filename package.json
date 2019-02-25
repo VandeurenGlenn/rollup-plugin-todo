@@ -1,0 +1,25 @@
+{
+  "name": "rollup-plugin-todo",
+  "version": "0.1.0",
+  "description": "",
+  "homepage": "",
+  "author": {
+    "name": "Glenn Vandeuren",
+    "email": "vandeurenglenn@gmail.com",
+    "url": ""
+  },
+  "main": "index.js",
+  "keywords": [
+    "rollup",
+    "plugin",
+    "todo"
+  ],
+  "devDependencies": {
+    "rollup": "^1.2.3"
+  },
+  "engines": {
+    "npm": ">= 11.0.0"
+  },
+  "repository": "VandeurenGlenn/rollup-plugin-todo",
+  "license": "MIT"
+}
